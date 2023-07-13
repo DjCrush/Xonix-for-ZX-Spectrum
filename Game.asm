@@ -1,4 +1,4 @@
-Game	ld      a, 100
+Game	ld      a, 1
 	ld      (NumberOfBalls), a
 	ld      a, FALSE
 	ld      (EndOfGame), a
@@ -10,7 +10,7 @@ Game	ld      a, 100
 	ld      (Lives), hl
 	ld      hl, $3130
 	ld      (Level), hl
-Game1	ld      a, VSOFF
+Game1	ld      a, VSON
 	ld      (VirtualScreenOnOFF), a   ; everything is displayed in the virtual screen
 	ld      a, 1
 	ld      (NumberOfEnemies), a
@@ -39,8 +39,6 @@ Game1	ld      a, VSOFF
 	call    PutSprite
 	ld      a, FALSE
 	ld      (varTraceExists), a
-	;  ld      a, VSOFF
-	 ; ld      (VirtualScreenOnOFF), a
 	ld      ix, BallArray
 	ld      a, (NumberOfBalls)
 Game2	push    af
@@ -48,17 +46,11 @@ Game2	push    af
 	ld      a, (Rand2)
 	add     a, 3                   
 	and     $3f
-	
 	cp      FIELDWIDTH - 4
 	jr      c, Game3
 	sub     5
 Game3	ld	(ix + offsetX), a
 	ld      b, a
-	ld      hl, TextCoordX1 + 2
-	call    Debug
-	ld      hl, TextCoordX
-	ld      de, 0
-	call    PrintString
 	call    Random
 	ld      a, (Rand1)
 	add     a, 3
@@ -68,14 +60,8 @@ Game3	ld	(ix + offsetX), a
 	sub     5
 Game4	ld	(ix + offsetY), a
 	ld      c, a
-	ld      hl, TextCoordY1 + 2
-	call    Debug
-	ld      hl, TextCoordY
-	ld      de, 0 * 256 + 1
-	call    PrintString
 	ld      de, SpriteBall
 	call    PutSprite
-	call    Pause0
 	ld      a, (ix + offsetX)
 	call    Random
 	ld      a, (Rand2)
