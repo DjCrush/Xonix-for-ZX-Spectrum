@@ -1,1 +1,1 @@
-# Xonix_For_ZX_Spectrum
+Xonix for ZX Spectrum
