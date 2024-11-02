@@ -101,7 +101,6 @@ Game6:
 	ld      b, (ix + offsetX)
 	ld      c, (ix + offsetY)
 	call    EraseSprite
-	
 	ld      a, $7
 	ld      hl, $5b00
 	ld      b, 1

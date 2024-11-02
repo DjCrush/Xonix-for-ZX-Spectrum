@@ -1,5 +1,4 @@
 /vs/
-/xonix.bat
-/xonix.sna
-/exp.asm
-/exp.bat
+/*.bat
+/*.sna
+/.gitignore
