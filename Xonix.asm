@@ -1,7 +1,7 @@
 ; Xonix V 0.2
                     DEVICE  ZXSPECTRUM48
 
-last_k              equ	    23560
+LAST_KEY            equ	    23560
 EMPTY               equ	    0
 LAND                equ	    1
 TLAND               equ	    2
@@ -25,30 +25,35 @@ TRUE                equ     1
 FALSE               equ     0
 ADRVIRTSCREEN       equ     $8000
 
-                    org     25000
+ 
+    org     25000
 
-Start               ld      sp, STACKPOINTER
-Start1              call    Menu
-                    call    Game
-                    ld      de, 26 * 256 + 11
-                    ld      hl, TextGameOver
-                    call    PrintStringB
-                    ld      b, 50
-                    call    Delay
-                    ld      hl, TextGameOver
-                    call    ClearScreenLine
-                    ld      b, 100
-                    call    Delay
-                    jr      Start1
-                    include "Menu.asm"
-                    include "Game.asm"
-                    include "Player.asm"
-                    include "Ball.asm"
-                    include "Enemy.asm"
-                    include "SpriteSubs.asm"
-                    include "FieldSubs.asm"
-                    include "StringSubs.asm"
-                    include "Subs.asm"
+Start:
+    ld      sp, STACKPOINTER
+
+Start1:
+    call    Menu
+    call    Game
+    ld      de, 26 * 256 + 11
+    ld      hl, TextGameOver
+    call    PrintStringB
+    ld      b, 50
+    call    Delay
+    ld      hl, TextGameOver
+    call    ClearScreenLine
+    ld      b, 100
+    call    Delay
+    jr      Start1
+
+    include "Menu.asm"
+    include "Game.asm"
+    include "Player.asm"
+    include "Ball.asm"
+    include "Enemy.asm"
+    include "SpriteSubs.asm"
+    include "FieldSubs.asm"
+    include "StringSubs.asm"
+    include "Subs.asm"
 
 TextTitle           defb    "PRESS ANY KEY", 0
 TextGameOver        defb    "GAME  OVER", 0
@@ -150,8 +155,6 @@ sprite_title	    defb $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
                     defb $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
                     defb $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
                     defb $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
-
-                    org		$c800
 
                     include "font8x4.asm"
 
