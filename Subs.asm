@@ -91,8 +91,7 @@ ClearMemoryBlock2       ld      sp, 0
 ;****************************************
 ; GENERATE RANDOM NUMBERS...
 ;****************************************
-Random:                 push    de
-                        push    hl
+Random:                 push    de, hl
                         ld      hl, Rand1
                         ld      e, (hl)
                         inc     l
@@ -112,16 +111,13 @@ Random:                 push    de
                         ld      (hl),e
                         dec     l
                         ld      (hl),a
-                        pop     hl
-                        pop     de
+                        pop     hl, de
                         ret
 ClearScreenLine         ld      (ClearScreenLine3 + 1), hl
                         ld      de, $57e0
                         ld      hl, $4000
                         ld      b, 96
-ClearScreenLine1        push    bc
-                        push    de
-                        push    hl
+ClearScreenLine1        push    bc, de, hl
                         xor     a
                         ld      b, 32
 ClearScreenLine2        ld      (de), a
@@ -152,10 +148,7 @@ ClearScreenLine4        ld      (hl), 5
 CopyScreenLineE         ld      hl, $4f60   ; 8f60
                         ld      de, $4880   ; 8860
                         ld      b, 96
-CopyScreenLineE1        push    bc
-                        push    de
-                        push    hl
-                        push    de
+CopyScreenLineE1        push    bc, de, hl, de
                         ld      d, h
                         ld      a, h
                         xor     $c0
@@ -186,10 +179,7 @@ CopyScreenLine          ld      hl, (Level)
                         ld      hl, $4f60   ; 8f60
                         ld      de, $4880   ; 8860
                         ld      b, 96
-CopyScreenLine1         push    bc
-                        push    de
-                        push    hl
-                        push    de
+CopyScreenLine1         push    bc, de, hl, de
                         ld      d, h
                         ld      a, h
                         xor     $c0

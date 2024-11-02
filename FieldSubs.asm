@@ -23,10 +23,7 @@ FillingFieldArray2  ex      af, af'
                     ld      a, EMPTY
                     call    PutCharToField
                     call    FillingFieldArray3
-                    inc     ix
-                    inc     ix
-                    inc     ix
-                    inc     ix
+                    .4 inc     ix
                     ex      af, af'
                     dec     a
                     jr      nz, FillingFieldArray2
@@ -69,13 +66,11 @@ InitFieldArray      ld	    hl, FieldArray
                     ld      hl, FieldArray + FIELDWIDTH * 2 + 2
                     ld      bc, (FIELDWIDTH - 4) * 256 + FIELDHEIGHT - 4
                     ld      a, EMPTY
-InitFieldArray1	    push    hl
-                    push    bc
+InitFieldArray1	    push    hl, bc
 InitFieldArray2	    ld      (hl), a
                     inc     hl
                     djnz    InitFieldArray2
-                    pop	    bc
-                    pop	    hl
+                    pop	    bc, hl
                     add	    hl, de
                     dec	    c
                     jr      nz, InitFieldArray1
@@ -84,23 +79,19 @@ InitFieldArray2	    ld      (hl), a
 ; in - BC coordinates x and y (B - x, C - y)
 ; out - A - char from ArrayField
 ; change - nothing
-GetCharFromField    push    bc
-                    push    hl
+GetCharFromField    push    bc, hl
                     call    GetFieldAddr
                     ld	    a, (hl)
-                    pop	    hl
-                    pop     bc
+                    pop	    hl, bc
                     ret
 
 ; do - put char in the ArrayField
 ; in - BC coordinates x and y (B - x, C - y)
 ; change - nothing
-PutCharToField      push    bc
-                    push    hl
+PutCharToField      push    bc, hl
                     call    GetFieldAddr
                     ld	    (hl), a
-                    pop     hl
-                    pop	    bc
+                    pop     hl, bc
                     ret	
 GetFieldAddr        ld	    h, 0
                     ld	    l, c
